@@ -64,11 +64,7 @@ impl<'a> Cli<'a> {
         ).get_matches();
 
         let columns = matches.value_of("columns").and_then(|s| s.parse().ok())
-            .unwrap_or_else(|| {
-                ::term_size::dimensions().map_or(FALLBACK_ROW_LEN, |(w, _)| {
-                    w.max(FALLBACK_ROW_LEN)
-                })
-            });
+            .unwrap_or(FALLBACK_ROW_LEN);
 
 
         let files = matches.is_present("files");
